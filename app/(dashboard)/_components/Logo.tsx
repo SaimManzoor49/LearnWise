@@ -8,6 +8,7 @@ export default function Logo() {
     width={130}
     alt='logo'
     src={'/logo.svg'}
+    className='m-5'
      />
   )
 }

@@ -7,6 +7,7 @@ import React from 'react'
 import TitleForm from './_components/TitleForm';
 import DescriptionForm from './_components/DescriptionForm';
 import ImageForm from './_components/ImageForm';
+import CategoryForm from './_components/CategoryForm';
 
 export default async function page({params}:{params:{courseId:string}}) {
 
@@ -75,6 +76,14 @@ export default async function page({params}:{params:{courseId:string}}) {
                 <ImageForm 
                 initialData={course}
                 courseId={course.id}
+                />
+                <CategoryForm 
+                initialData={course}
+                courseId={course.id}
+                options={categories.map((category)=>({
+                    label:category.name,
+                    value:category.id,
+                }))}
                 />
             </div>
         </div>

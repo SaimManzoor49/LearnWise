@@ -22,6 +22,14 @@ export default async function page({params}:{params:{courseId:string}}) {
         }
     });
 
+    const categories = await db.category.findMany({
+        orderBy:{
+            name:'asc',
+        }
+    })
+
+    console.log(categories)
+
     if(!course) redirect('/')
 
     const requiredFields = [

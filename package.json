@@ -12,6 +12,7 @@
     "@clerk/nextjs": "^4.27.1",
     "@edgestore/react": "^0.1.4",
     "@edgestore/server": "^0.1.4",
+    "@hello-pangea/dnd": "^16.3.0",
     "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.6.0",
     "@radix-ui/react-dialog": "^1.0.5",

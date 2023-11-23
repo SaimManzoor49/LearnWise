@@ -10,6 +10,7 @@ import ImageForm from './_components/ImageForm';
 import CategoryForm from './_components/CategoryForm';
 import PriceForm from './_components/PriceForm';
 import AttachementForm from './_components/AttachementForm';
+import ChaptersForm from './_components/ChaptersForm';
 
 export default async function page({ params }: { params: { courseId: string } }) {
 
@@ -21,9 +22,15 @@ export default async function page({ params }: { params: { courseId: string } })
 
     const course = await db.course.findUnique({
         where: {
-            id: params.courseId
+            id: params.courseId,
+            userId
         },
         include:{
+            chapters:{
+                orderBy:{
+                    position:'asc'
+                }
+            },
             attachments:{
                 orderBy:{
                     createdAt:'desc'
@@ -45,9 +52,10 @@ export default async function page({ params }: { params: { courseId: string } })
     const requiredFields = [
         course.title,
         course.description,
-        course.imageUrl,
+        course.imageUrl !=='null',
         course.price,
         course.categoryId,
+        course.chapters.some(chapter=> chapter.isPublished)
     ]
 
     const totalFields = requiredFields.length
@@ -103,9 +111,10 @@ export default async function page({ params }: { params: { courseId: string } })
                                 Course chapters
                             </h2>
                         </div>
-                        <div className="">
-                            TODO:Chapters
-                        </div>
+                        <ChaptersForm
+                        initialData={course}
+                        courseId={course.id}
+                    />
                     </div>
                     <div className="flex items-center gap-x-2">
                         <IconBadge icon={CircleDollarSign} />

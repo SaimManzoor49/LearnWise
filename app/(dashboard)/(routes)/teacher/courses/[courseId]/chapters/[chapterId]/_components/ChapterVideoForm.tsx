@@ -5,24 +5,25 @@ import axios from 'axios'
 
 
 import { Button } from '@/components/ui/button'
-import { ImageIcon, Pencil, PlusCircle } from 'lucide-react'
+import { ImageIcon, Pencil, PlusCircle, VideoIcon } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import { Course } from '@prisma/client'
+import { Chapter, Course, MuxData } from '@prisma/client'
 import Image from 'next/image'
 import { FileUpload } from '@/components/FileUpload'
 
 interface ChapterVideoFormProps {
-    initialData: Course
+    initialData: Chapter & { muxData?: MuxData | null }
     courseId: string;
+    chapterId: string;
 }
 
 
 const formSchema = z.object({
-    imageUrl: z.string().min(1, { message: 'Image is required' })
+    videoUrl: z.string().min(1)
 })
 
-export default function ChapterVideoForm({ initialData, courseId }: ChapterVideoFormProps) {
+export default function ChapterVideoForm({ initialData, courseId, chapterId }: ChapterVideoFormProps) {
     const toggleEdit = () => setIsEditing(!isEditing);
     const [isEditing, setIsEditing] = useState(false)
     const router = useRouter();
@@ -31,8 +32,8 @@ export default function ChapterVideoForm({ initialData, courseId }: ChapterVideo
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
 
         try {
-            await axios.patch(`/api/courses/${courseId}`, values);
-            toast.success("Course updated!")
+            await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values);
+            toast.success("Chapter updated!")
             toggleEdit();
             router.refresh();
         } catch (error) {
@@ -45,57 +46,57 @@ export default function ChapterVideoForm({ initialData, courseId }: ChapterVideo
     return (
         <div className='mt-6 border bg-slate-100 rounded-md p-4'>
             <div className="font-medium flex items-center justify-between">
-                Course image
+                Chapter Video
                 <Button onClick={toggleEdit} variant={'ghost'}>
                     {isEditing && (
                         <>Cancel</>
                     )}
-                    {!isEditing && (initialData.imageUrl ==='null')  && (
+                    {!isEditing && (initialData.videoUrl === 'null') && (
                         <>
-                        <PlusCircle  className='h-4 w-4 mr-2'/>
-                        Add an image
+                            <PlusCircle className='h-4 w-4 mr-2' />
+                            Add an video
                         </>
                     )}
 
-                    {!isEditing && !(initialData.imageUrl === 'null') && 
+                    {!isEditing && !(initialData.videoUrl === 'null') &&
                         (
                             <>
                                 <Pencil className='h-4 w-4 mr-2' />
-                                Edit image
+                                Edit video
                             </>
                         )}
                 </Button>
             </div>
             {!isEditing && (
-              initialData.imageUrl === 'null'?(<>
-              <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
-                <ImageIcon className='h-10 w-10 text-slate-500' />
-              </div>
-              </>):(<>
-              <div className="relative aspect-video mt-2">
-                <Image
-                alt='upload'
-                fill
-                className='object-cover rounded-md'
-                src={initialData.imageUrl as string}////////////////////////// ehhehe
-                />
-              </div>
-              </>)
+                !initialData.videoUrl  ? (<>
+                    <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
+                        <VideoIcon className='h-10 w-10 text-slate-500' />
+                    </div>
+                </>) : (<>
+                    <div className="relative aspect-video mt-2">
+                        Video uploaded
+                    </div>
+                </>)
             )}
             {isEditing && (
-               <div>
-                <FileUpload 
-                endpoint='courseImage'
-                onChange={(url)=>{
-                    if(url){
-                        onSubmit({imageUrl:url})
-                    }
-                }}
-                />
-                <div className="text-xs text-muted-foreground mt-4">
-                    16:9 aspect ratio recomanded
+                <div>
+                    <FileUpload
+                        endpoint='chapterVideo'
+                        onChange={(url) => {
+                            if (url) {
+                                onSubmit({ videoUrl: url })
+                            }
+                        }}
+                    />
+                    <div className="text-xs text-muted-foreground mt-4">
+                        Upload this chapter&apos;s video
+                    </div>
                 </div>
-               </div>
+            )}
+            {initialData.videoUrl && !isEditing && (
+                <div className="text-xs text-muted-foreground mt-2 ">
+                    Videos can take a few minutes to process. Refresh the page if video dose not appear.
+                </div>
             )}
         </div>
     )

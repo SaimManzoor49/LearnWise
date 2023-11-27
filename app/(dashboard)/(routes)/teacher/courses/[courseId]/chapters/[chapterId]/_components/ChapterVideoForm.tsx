@@ -44,7 +44,53 @@ export default function ChapterVideoForm({ initialData, courseId, chapterId }: C
     }
 
     return (
-       
+        <div className='mt-6 border bg-slate-100 rounded-md p-4'>
+            <div className="font-medium flex items-center justify-between">
+                Chapter Video
+                <Button onClick={toggleEdit} variant={'ghost'}>
+                    {isEditing && (
+                        <>Cancel</>
+                    )}
+                    {!isEditing && (initialData.videoUrl === 'null') && (
+                        <>
+                            <PlusCircle className='h-4 w-4 mr-2' />
+                            Add an video
+                        </>
+                    )}
+
+                    {!isEditing && !(initialData.videoUrl === 'null') &&
+                        (
+                            <>
+                                <Pencil className='h-4 w-4 mr-2' />
+                                Edit video
+                            </>
+                        )}
+                </Button>
+                    {!isEditing && !(initialData.videoUrl === 'null') &&
+                        (
+                            <>
+                                <Pencil className='h-4 w-4 mr-2' />
+                                Edit video
+                            </>
+                        )}
+                </Button>
+                    {!isEditing && !(initialData.videoUrl === 'null') &&
+                        (
+                            <>
+                                <Pencil className='h-4 w-4 mr-2' />
+                                Edit video
+                            </>
+                        )}
+                </Button>
+                    {!isEditing && !(initialData.videoUrl === 'null') &&
+                        (
+                            <>
+                                <Pencil className='h-4 w-4 mr-2' />
+                                Edit video
+                            </>
+                        )}
+                </Button>
+            </div>
             {!isEditing && (
                 !initialData.videoUrl  ? (<>
                     <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">

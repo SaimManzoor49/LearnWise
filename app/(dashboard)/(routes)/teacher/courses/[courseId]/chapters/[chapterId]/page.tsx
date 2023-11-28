@@ -10,6 +10,7 @@ import ChapterDescriptionForm from './_components/ChapterAccessForm'
 import ChapterAccessForm from './_components/ChapterAccessForm'
 import ChapterVideoForm from './_components/ChapterVideoForm'
 import Banner from '@/components/Banner'
+import ChapterAction from './_components/ChapterAction'
 
 export default async function page({ params }: { params: { courseId: string, chapterId: string } }) {
 
@@ -66,6 +67,12 @@ export default async function page({ params }: { params: { courseId: string, cha
                             <h1 className='text-2xl font-medium'>Chapter Creation</h1>
                             <span className='text-sm text-slate-700'>Complete all fields {completionText}</span>
                         </div>
+                        <ChapterAction
+                        disabled={!isComplete}
+                        courseId={params.courseId}
+                        chapterId={params.chapterId}
+                        isPublished={chapter.isPublished}
+                        />
                     </div>
                 </div>
             </div>

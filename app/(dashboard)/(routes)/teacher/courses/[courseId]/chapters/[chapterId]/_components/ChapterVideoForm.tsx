@@ -66,30 +66,6 @@ export default function ChapterVideoForm({ initialData, courseId, chapterId }: C
                             </>
                         )}
                 </Button>
-                    {!isEditing && !(initialData.videoUrl === 'null') &&
-                        (
-                            <>
-                                <Pencil className='h-4 w-4 mr-2' />
-                                Edit video
-                            </>
-                        )}
-                </Button>
-                    {!isEditing && !(initialData.videoUrl === 'null') &&
-                        (
-                            <>
-                                <Pencil className='h-4 w-4 mr-2' />
-                                Edit video
-                            </>
-                        )}
-                </Button>
-                    {!isEditing && !(initialData.videoUrl === 'null') &&
-                        (
-                            <>
-                                <Pencil className='h-4 w-4 mr-2' />
-                                Edit video
-                            </>
-                        )}
-                </Button>
             </div>
             {!isEditing && (
                 !initialData.videoUrl  ? (<>

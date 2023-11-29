@@ -47,7 +47,6 @@ export default async function page({ params }: { params: { courseId: string } })
         }
     })
 
-    console.log(categories)
 
     if (!course) redirect('/')
 

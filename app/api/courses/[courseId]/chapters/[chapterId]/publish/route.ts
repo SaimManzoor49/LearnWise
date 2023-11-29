@@ -55,7 +55,7 @@ export async function PATCH(req:Request,{params}:{params:{courseId:string,chapte
 
 
     } catch (error) {
-        console.log("Chapter_UNPUBLISH",error)
+        console.log("Chapter_PUBLISH",error)
         return new NextResponse("Internal Error",{status:500})
     }
 

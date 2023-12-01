@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import IconBadge from './icon-badge'
 import { BookOpen } from 'lucide-react'
+import { formatePrice } from '@/lib/formate'
 
 interface CourseCardProps {
     id: string,
@@ -49,6 +50,20 @@ export const CourseCard = ({
                             <span>{chaptersLength} {chaptersLength === 1 ? "chapter" : "chapters"}</span>
                         </div>
                     </div>
+
+
+                    {progress!==null?(
+                        <div className="">
+
+                            {/* // progreeComponent */}
+                            {/* // progreeComponent */}
+                            {/* // progreeComponent */}
+                            {/* // progreeComponent */}
+                            {/* // progreeComponent */}
+                        </div>
+                    ):(
+                        <p className='text-md  md:text-sm font-medium text-slate-600'>{formatePrice(price)}</p>
+                    )}
                 </div>
             </div>
         </Link>

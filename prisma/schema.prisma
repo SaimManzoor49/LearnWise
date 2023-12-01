@@ -3,7 +3,7 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  previewFeatures = ["driverAdapters", "fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -21,6 +21,8 @@ model Course {
   price       Float?
   isPublished Boolean @default(false)
 
+  fulltext String? @db.VarChar(255) // Adjust type and length as needed
+
   categoryId String?
   category   Category? @relation(fields: [categoryId], references: [id])
 
@@ -30,8 +32,9 @@ model Course {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  // @@fulltext([title])
 
-  @@index([categoryId])
+  @@index([categoryId, title])
 }
 
 model Category {

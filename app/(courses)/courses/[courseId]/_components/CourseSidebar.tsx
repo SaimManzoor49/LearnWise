@@ -29,7 +29,7 @@ const CourseSidebar = async({course,progressCount}:CourseSidebarProps) => {
         }
     })
 
-
+    
   return (
     <div className='h-full border-r flex flex-col overflow-y-auto shadow-sm'>
         <div className="p-8 flex flex-col border-b">
@@ -37,17 +37,19 @@ const CourseSidebar = async({course,progressCount}:CourseSidebarProps) => {
             {/* CheckPurchase +progress */}
         </div>
         <div className="flex flex-col w-full">
-            {course.chapters.map((ch)=>(
-                <CourseSidebarItem 
-                key={ch.id}
-                id={ch.id}
-                label={ch.title}
-                isCompleted={!!ch.userProgress?.[0]?.isCompleted}
-                courseId={course.id}
-                isLocked={ch.isFree && !purchase}
+            {course.chapters.map((ch)=>{
+        // console.log(ch.isFree,"   ", purchase , "  " , ch.title )//////////////////////////////////
 
-                />
-            ))}
+                return (<CourseSidebarItem 
+                    key={ch.id}
+                    id={ch.id}
+                    label={ch.title}
+                    isCompleted={!!ch.userProgress?.[0]?.isCompleted}
+                    courseId={course.id}
+                    isLocked={!(ch.isFree && !purchase)} /////////////////////////////////
+    
+                    />)
+            })}
         </div>
     </div>
   )

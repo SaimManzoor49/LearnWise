@@ -17,7 +17,9 @@ const CourseSidebarItem = ({label,id,isCompleted,courseId,isLocked}:CourseSideba
     const pathname = usePathname()
     const router = useRouter()
 
-    const Icon  = isLocked ? Lock : (isCompleted?CheckCircle:PlayCircle)
+    // console.log(isLocked,"   ", label )//////////////////////////////////
+
+    const Icon  = isLocked ? Lock : (isCompleted?CheckCircle:PlayCircle) ///////////////////////
 
     const isActive = pathname?.includes(id)
 

@@ -46,7 +46,7 @@ const CourseSidebar = async({course,progressCount}:CourseSidebarProps) => {
                     label={ch.title}
                     isCompleted={!!ch.userProgress?.[0]?.isCompleted}
                     courseId={course.id}
-                    isLocked={!(ch.isFree && !purchase)} /////////////////////////////////
+                    isLocked={!ch.isFree && !purchase} /////////////////////////////////
     
                     />)
             })}

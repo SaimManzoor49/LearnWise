@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast'
 import { useConfettiStore } from '@/hooks/useConfettiStore'
 import { Loader2, Lock } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
 
 interface VideoPlayerProps{
@@ -23,6 +24,33 @@ interface VideoPlayerProps{
 
 const VideoPlayer = ({playbackId,completeOnEnd,courseId,chapterId,nextChapterId,title,isLocked}:VideoPlayerProps) => {
     const [isReady, setIsReady] = useState(false)
+    const router = useRouter()
+    const confetti = useConfettiStore()
+
+    const onEnd = async()=>{
+        try {
+
+            if(completeOnEnd){
+                await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`,{
+                    isCompleted:true
+                })
+
+                if(!nextChapterId){
+                    confetti.onOpen()
+                }
+
+                toast.success("Progress updated")
+                router.refresh()
+
+                if(nextChapterId){
+                    router.push(`/courses/${courseId}/chapters/${nextChapterId}`)
+                }
+            }
+            
+        } catch (error) {
+            toast.error("Something went wronf")
+        }
+    }
 
 
   return (
@@ -44,7 +72,7 @@ const VideoPlayer = ({playbackId,completeOnEnd,courseId,chapterId,nextChapterId,
                 title={title}
                 className={cn(!isReady&&"hidden")}
                 onCanPlay={()=>{setIsReady(true)}}
-                onEnded={()=>{}}
+                onEnded={onEnd}
                 autoPlay
                 playbackId={playbackId}
                 />

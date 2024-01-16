@@ -9,7 +9,7 @@ try {
     const {userId} = auth();
     const {url} = await req.json()
 
-    if(!userId||isTeacher(userId)){
+    if(!userId||!isTeacher(userId)){
         return new NextResponse("UNAUTHORIZED",{status:401})
     }
     const courseOwner = await db.course.findUnique({

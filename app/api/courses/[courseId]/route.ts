@@ -41,7 +41,7 @@ export async function DELETE (req:Request,{params}:{params:{courseId:string}}) {
 
         const {userId} = auth()
         const {courseId} = params
-        if(!userId||isTeacher(userId)){
+        if(!userId||!isTeacher(userId)){
             return new NextResponse("UNAUTHORIZED",{status:401})
         }
 

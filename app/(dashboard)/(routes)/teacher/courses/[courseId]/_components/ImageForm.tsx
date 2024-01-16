@@ -35,7 +35,8 @@ export default function ImageForm({ initialData, courseId }: ImageFormProps) {
             toast.success("Course updated!")
             toggleEdit();
             router.refresh();
-        } catch (error) {
+        } catch (error:any) {
+            console.log(error)
             toast.error("Something went wront")
 
         }

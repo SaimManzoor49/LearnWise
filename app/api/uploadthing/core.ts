@@ -6,8 +6,9 @@ const f = createUploadthing();
  
 const handleAuth = ()=>{
     const {userId} = auth();
+    console.log(userId)
     const isAuthorized = isTeacher(userId)
-    if(!userId || isAuthorized) throw new Error("AUNOUTHARIZED -> Uploadthing-clerk")
+    if(!userId || !isAuthorized) throw new Error("AUNOUTHARIZED -> Uploadthing-clerk")
     return {userId}
 } 
 // FileRouter for your app, can contain multiple FileRoutes

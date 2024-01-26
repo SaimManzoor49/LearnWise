@@ -6,7 +6,6 @@ import { getDashboardCourses } from '@/actions/getDashboardCourses'
 import CoursesList from '@/components/CoursesList'
 import { CheckCircle, Clock } from 'lucide-react'
 import InfoCard from './_components/InfoCard'
-
 export default async function Dashboard() {
 
   const { userId } = auth()
